@@ -15,7 +15,7 @@ app.use(
     origin: [
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://personal-finance-nu-gold.vercel.app/',
+      'https://personal-finance-nu-gold.vercel.app',
     ],
     credentials: true,
   })
@@ -23,6 +23,20 @@ app.use(
 
 // Routes
 app.use('/api', routes);
+app.use(routes);
+
+// Root endpoint for quick deployment sanity check
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Personal Finance API is running',
+    endpoints: {
+      health: '/health',
+      authRegister: '/api/auth/register',
+      authLogin: '/api/auth/login',
+    },
+  });
+});
 
 // Health check endpoint
 app.get('/health', (_req, res) => {
