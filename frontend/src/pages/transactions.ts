@@ -1,6 +1,7 @@
 import { ApiClient } from '../api';
 import { store } from '../store';
 import { formatCurrency, formatDate } from '../dom';
+import { Transaction } from '../types';
 
 export async function setupTransactionsPage(): Promise<void> {
   try {
@@ -23,7 +24,7 @@ async function loadAllTransactions(): Promise<void> {
   }
 }
 
-function renderTransactions(transactions: any[]): void {
+function renderTransactions(transactions: Transaction[]): void {
   const container = document.getElementById('transactionsListContainer');
   if (!container) return;
 

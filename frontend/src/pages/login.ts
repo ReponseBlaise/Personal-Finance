@@ -15,6 +15,9 @@ export function setupLoginPage(): void {
     return;
   }
 
+  if (loginForm.dataset.initialized) return;
+  loginForm.dataset.initialized = 'true';
+
   loginForm.addEventListener('submit', async (e: Event) => {
     e.preventDefault();
     loginError.textContent = '';

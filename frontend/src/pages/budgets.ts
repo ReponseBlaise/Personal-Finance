@@ -1,6 +1,7 @@
 import { ApiClient } from '../api';
 import { store } from '../store';
 import { formatCurrency } from '../dom';
+import { Budget } from '../types';
 
 export async function setupBudgetsPage(): Promise<void> {
   try {
@@ -23,7 +24,7 @@ async function loadBudgets(): Promise<void> {
   }
 }
 
-function renderBudgets(budgets: any[]): void {
+function renderBudgets(budgets: Budget[]): void {
   const container = document.getElementById('budgetsPageContainer');
   if (!container) return;
 

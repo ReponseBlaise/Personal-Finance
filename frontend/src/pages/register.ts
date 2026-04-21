@@ -19,6 +19,9 @@ export function setupRegisterPage(): void {
     return;
   }
 
+  if (registerForm.dataset.initialized) return;
+  registerForm.dataset.initialized = 'true';
+
   registerForm.addEventListener('submit', async (e: Event) => {
     e.preventDefault();
     registerError.textContent = '';

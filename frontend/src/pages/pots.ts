@@ -1,6 +1,7 @@
 import { ApiClient } from '../api';
 import { store } from '../store';
 import { formatCurrency } from '../dom';
+import { Pot } from '../types';
 
 export async function setupPotsPage(): Promise<void> {
   try {
@@ -23,7 +24,7 @@ async function loadPots(): Promise<void> {
   }
 }
 
-function renderPots(pots: any[]): void {
+function renderPots(pots: Pot[]): void {
   const container = document.getElementById('potsPageContainer');
   if (!container) return;
 

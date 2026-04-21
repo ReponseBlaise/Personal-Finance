@@ -1,6 +1,7 @@
 import { ApiClient } from '../api';
 import { store } from '../store';
 import { formatCurrency, formatDate } from '../dom';
+import { Transaction, Pot, Budget } from '../types';
 
 export async function setupOverviewPage(): Promise<void> {
   try {
@@ -15,13 +16,11 @@ export async function setupOverviewPage(): Promise<void> {
     const addBudgetBtn = document.getElementById('addBudgetBtn');
 
     addPotBtn?.addEventListener('click', () => {
-      store.setCurrentPage('pots');
-      renderPage('pots');
+      document.querySelector<HTMLElement>('[data-page="pots"]')?.click();
     });
 
     addBudgetBtn?.addEventListener('click', () => {
-      store.setCurrentPage('budgets');
-      renderPage('budgets');
+      document.querySelector<HTMLElement>('[data-page="budgets"]')?.click();
     });
   } catch (error) {
     console.error('Failed to setup overview page:', error);
@@ -92,7 +91,7 @@ function renderSummaryCards(summary: { totalIncome: number; totalExpenses: numbe
   }
 }
 
-function renderPotsPreview(pots: any[]): void {
+function renderPotsPreview(pots: Pot[]): void {
   const container = document.getElementById('potsContainer');
   if (!container) return;
 
@@ -120,7 +119,7 @@ function renderPotsPreview(pots: any[]): void {
   }).join('');
 }
 
-function renderBudgetsPreview(budgets: any[]): void {
+function renderBudgetsPreview(budgets: Budget[]): void {
   const container = document.getElementById('budgetsContainer');
   if (!container) return;
 
@@ -145,7 +144,7 @@ function renderBudgetsPreview(budgets: any[]): void {
   }).join('');
 }
 
-function renderRecentTransactions(transactions: any[]): void {
+function renderRecentTransactions(transactions: Transaction[]): void {
   const container = document.getElementById('recentTransactionsContainer');
   if (!container) return;
 
@@ -167,21 +166,3 @@ function renderRecentTransactions(transactions: any[]): void {
   `).join('');
 }
 
-function renderPage(pageName: string): void {
-  const pages = document.querySelectorAll('.page');
-  pages.forEach(page => page.classList.remove('active'));
-
-  const pageId = {
-    overview: 'overviewPage',
-    transactions: 'transactionsPage',
-    budgets: 'budgetsPage',
-    pots: 'potsPage',
-    'recurring-bills': 'recurringPage',
-  }[pageName];
-
-  if (!pageId) return;
-  const page = document.getElementById(pageId);
-  if (page) {
-    page.classList.add('active');
-  }
-}

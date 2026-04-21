@@ -26,25 +26,10 @@
 
             <form id="loginForm">
               <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
+                <input type="email" id="email" name="email" placeholder="Email" required />
               </div>
-
               <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  required
-                />
+                <input type="password" id="password" name="password" placeholder="Password" required />
               </div>
 
               <button type="submit" class="btn btn-primary">Login</button>
@@ -75,47 +60,16 @@
 
             <form id="registerForm">
               <div class="form-group">
-                <label for="registerName">Name</label>
-                <input
-                  type="text"
-                  id="registerName"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
+                <input type="text" id="registerName" name="name" placeholder="Name" required />
               </div>
-
               <div class="form-group">
-                <label for="registerEmail">Email</label>
-                <input
-                  type="email"
-                  id="registerEmail"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
+                <input type="email" id="registerEmail" name="email" placeholder="Email" required />
               </div>
-
               <div class="form-group">
-                <label for="registerPassword">Password</label>
-                <input
-                  type="password"
-                  id="registerPassword"
-                  name="password"
-                  placeholder="At least 8 characters"
-                  required
-                />
+                <input type="password" id="registerPassword" name="password" placeholder="Password (min. 8 characters)" required />
               </div>
-
               <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="Confirm your password"
-                  required
-                />
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required />
               </div>
 
               <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -240,18 +194,14 @@
 
                 <!-- Add Transaction Form -->
                 <div id="transactionFormContainer" class="card" style="display: none;">
-                  <h4>Add Transaction</h4>
                   <form id="transactionForm">
                     <div class="form-group">
-                      <label for="transDescription">Description</label>
-                      <input type="text" id="transDescription" required />
+                      <input type="text" id="transDescription" placeholder="Description" required />
                     </div>
                     <div class="form-group">
-                      <label for="transAmount">Amount</label>
-                      <input type="number" id="transAmount" step="0.01" required />
+                      <input type="number" id="transAmount" step="0.01" placeholder="Amount (e.g. 50.00)" required />
                     </div>
                     <div class="form-group">
-                      <label for="transType">Type</label>
                       <select id="transType" required>
                         <option value="">Select type</option>
                         <option value="income">Income</option>
@@ -259,11 +209,9 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="transCategory">Category</label>
-                      <input type="text" id="transCategory" required />
+                      <input type="text" id="transCategory" placeholder="Category (e.g. Food, Rent)" required />
                     </div>
                     <div class="form-group">
-                      <label for="transDate">Date</label>
                       <input type="date" id="transDate" required />
                     </div>
                     <button type="submit" class="btn btn-primary">Add</button>
@@ -286,15 +234,12 @@
 
                 <!-- Add Budget Form -->
                 <div id="budgetFormContainer" class="card" style="display: none;">
-                  <h4>Add Budget</h4>
                   <form id="budgetForm">
                     <div class="form-group">
-                      <label for="budgetCategory">Category</label>
-                      <input type="text" id="budgetCategory" required />
+                      <input type="text" id="budgetCategory" placeholder="Category (e.g. Groceries)" required />
                     </div>
                     <div class="form-group">
-                      <label for="budgetLimit">Limit</label>
-                      <input type="number" id="budgetLimit" step="0.01" required />
+                      <input type="number" id="budgetLimit" step="0.01" placeholder="Monthly limit (e.g. 300.00)" required />
                     </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                     <button type="button" class="btn btn-secondary" id="cancelBudgetBtn">Cancel</button>
@@ -316,18 +261,14 @@
 
                 <!-- Add Pot Form -->
                 <div id="potFormContainer" class="card" style="display: none;">
-                  <h4>Add Pot</h4>
                   <form id="potForm">
                     <div class="form-group">
-                      <label for="potName">Name</label>
-                      <input type="text" id="potName" required />
+                      <input type="text" id="potName" placeholder="Pot name (e.g. Holiday)" required />
                     </div>
                     <div class="form-group">
-                      <label for="potTarget">Target</label>
-                      <input type="number" id="potTarget" step="0.01" required />
+                      <input type="number" id="potTarget" step="0.01" placeholder="Savings target (e.g. 1000.00)" required />
                     </div>
                     <div class="form-group">
-                      <label for="potColor">Color</label>
                       <select id="potColor" required>
                         <option value="">Select color</option>
                         <option value="#FF6B6B">Red</option>

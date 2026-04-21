@@ -8,20 +8,31 @@ import { setupBudgetsPage } from './pages/budgets';
 import { setupPotsPage } from './pages/pots';
 import { setDisplay } from './dom';
 
-function initializeApp(): void {
-  // Clear any existing auth data for fresh start
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  
-  // Always start with login page
-  showLoginPage();
+let dashboardInitialized = false;
 
-  // Subscribe to auth state changes
+function initializeApp(): void {
+  setupLoginPage();
+  setupRegisterPage();
+
+  const token = localStorage.getItem('token');
+  const userJson = localStorage.getItem('user');
+  if (token && userJson) {
+    try {
+      const user = JSON.parse(userJson) as import('./types').User;
+      store.setAuthResponse({ token, user });
+    } catch {
+      showLoginPage();
+    }
+  } else {
+    showLoginPage();
+  }
+
   store.subscribe(() => {
     const state = store.getState();
     if (state.auth.token && state.auth.user) {
       showDashboard();
     } else {
+      dashboardInitialized = false;
       showLoginPage();
     }
   });
@@ -35,38 +46,35 @@ function showLoginPage(): void {
   if (loginPage) setDisplay(loginPage, 'flex');
   if (registerPage) setDisplay(registerPage, 'none');
   if (dashboardContainer) setDisplay(dashboardContainer, 'none');
-
-  setupLoginPage();
-  setupRegisterPage();
 }
 
 async function showDashboard(): Promise<void> {
-  const authContainer = document.getElementById('authContainer');
+  const loginPage = document.getElementById('loginPage');
+  const registerPage = document.getElementById('registerPage');
   const dashboardContainer = document.getElementById('dashboardContainer');
   const userEmail = document.getElementById('userEmail');
 
-  if (authContainer) authContainer.style.display = 'none';
-  if (dashboardContainer) dashboardContainer.style.display = 'flex';
+  if (loginPage) setDisplay(loginPage, 'none');
+  if (registerPage) setDisplay(registerPage, 'none');
+  if (dashboardContainer) setDisplay(dashboardContainer, 'flex');
 
   const state = store.getState();
   if (userEmail && state.auth.user) {
     userEmail.textContent = state.auth.user.email;
   }
 
-  // Setup logout button
-  const logoutBtn = document.getElementById('logoutBtn');
-  logoutBtn?.addEventListener('click', () => {
-    store.clearAuth();
-  });
+  if (!dashboardInitialized) {
+    dashboardInitialized = true;
 
-  // Setup navigation links
-  setupNavigation();
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn?.addEventListener('click', () => {
+      store.clearAuth();
+    });
 
-  // Setup menu minimize toggle
-  setupMenuToggle();
-
-  // Initialize first page
-  await navigateToPage('overview');
+    setupNavigation();
+    setupMenuToggle();
+    await navigateToPage('overview');
+  }
 }
 
 function setupNavigation(): void {
