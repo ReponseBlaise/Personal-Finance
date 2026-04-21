@@ -409,7 +409,9 @@ input::placeholder {
 
 .nav-icon {
   margin-right: 12px;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .minimize-btn {
