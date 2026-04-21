@@ -47,7 +47,7 @@ function renderBudgets(budgets: Budget[]): void {
             ${isOverBudget ? `<span style="color: #ef4444;"> (Over by ${formatCurrency(budget.spent - budget.limit)})</span>` : `<span style="color: #22c55e;"> (${formatCurrency(remaining)} remaining)</span>`}
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: ${Math.min(percentage, 100)}%; background: ${percentage > 100 ? '#ef4444' : 'linear-gradient(90deg, #6366f1, #ec4899)'};"></div>
+            <div class="progress-fill" style="width: ${Math.min(percentage, 100)}%; background: ${percentage > 100 ? '#ef4444' : 'var(--accent-color)'};"></div>
           </div>
         </div>
         <button class="delete-btn" data-id="${budget.id}">Delete</button>

@@ -136,7 +136,7 @@ function renderBudgetsPreview(budgets: Budget[]): void {
           <h4>${budget.category}</h4>
           <div class="budget-status">${formatCurrency(budget.spent)} of ${formatCurrency(budget.limit)}</div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: ${percentage}%; background: ${percentage > 100 ? '#ef4444' : 'linear-gradient(90deg, #6366f1, #ec4899)'};"></div>
+            <div class="progress-fill" style="width: ${percentage}%;"></div>
           </div>
         </div>
       </div>
