@@ -1,3 +1,4 @@
+import './styles.css';
 import { store } from './store';
 import { setupLoginPage } from './pages/login';
 import { setupRegisterPage } from './pages/register';

@@ -1,5 +1,5 @@
-import { ApiClient } from './api';
-import { store } from './store';
+import { ApiClient } from '../api';
+import { store } from '../store';
 import {
   getInputValue,
   getSelectValue,
@@ -8,8 +8,8 @@ import {
   formatDate,
   setText,
   setHTML,
-} from './dom';
-import { Transaction, TransactionRequest } from './types';
+} from '../dom';
+import { Transaction, TransactionRequest, FinancialSummary } from '../types';
 
 export async function setupDashboard(): Promise<void> {
   await loadTransactions();
@@ -41,7 +41,7 @@ async function loadSummary(): Promise<void> {
   }
 }
 
-function renderSummary(summary: typeof store.getState().summary): void {
+function renderSummary(summary: FinancialSummary | null): void {
   if (!summary) return;
 
   const incomeElement = document.getElementById('totalIncome');

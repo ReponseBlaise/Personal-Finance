@@ -1,7 +1,7 @@
-import { ApiClient } from './api';
-import { store } from './store';
-import { validateEmail, validatePassword, getInputValue, clearInput, setDisplay } from './dom';
-import { RegisterRequest } from './types';
+import { ApiClient } from '../api';
+import { store } from '../store';
+import { validateEmail, validatePassword, getInputValue, clearInput, setDisplay } from '../dom';
+import { RegisterRequest } from '../types';
 
 export function setupRegisterPage(): void {
   const registerForm = document.getElementById('registerForm') as HTMLFormElement | null;

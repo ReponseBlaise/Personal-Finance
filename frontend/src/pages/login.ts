@@ -1,7 +1,7 @@
-import { ApiClient } from './api';
-import { store } from './store';
-import { validateEmail, validatePassword, getInputValue, clearInput, setDisplay } from './dom';
-import { LoginRequest } from './types';
+import { ApiClient } from '../api';
+import { store } from '../store';
+import { validateEmail, validatePassword, getInputValue, clearInput, setDisplay } from '../dom';
+import { LoginRequest } from '../types';
 
 export function setupLoginPage(): void {
   const loginForm = document.getElementById('loginForm') as HTMLFormElement | null;
