@@ -79,21 +79,40 @@ async function deleteBudget(id: string): Promise<void> {
   }
 }
 
+function openModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    overlay.style.display = 'flex';
+    form.style.display = 'block';
+  }
+}
+
+function closeModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    form.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+}
+
 function setupEventListeners(): void {
   const addBtn = document.getElementById('addBudgetPageBtn');
-  const formContainer = document.getElementById('budgetFormContainer');
-  const form = document.getElementById('budgetForm');
   const cancelBtn = document.getElementById('cancelBudgetBtn');
+  const form = document.getElementById('budgetForm');
 
-  addBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'block');
-  });
-
+  addBtn?.addEventListener('click', () => openModal('budgetFormContainer'));
   cancelBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'none');
+    closeModal('budgetFormContainer');
     (form as HTMLFormElement)?.reset();
   });
-
+  document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).id === 'modalOverlay') {
+      closeModal('budgetFormContainer');
+      (form as HTMLFormElement)?.reset();
+    }
+  });
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     await handleAddBudget();
@@ -118,7 +137,7 @@ async function handleAddBudget(): Promise<void> {
     if (response.success) {
       store.addBudget(response.data);
       (document.getElementById('budgetForm') as HTMLFormElement)?.reset();
-      document.getElementById('budgetFormContainer')?.style.setProperty('display', 'none');
+      closeModal('budgetFormContainer');
       await loadBudgets();
     }
   } catch (error) {
