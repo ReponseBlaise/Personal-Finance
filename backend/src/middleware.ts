@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './authService';
-import { JWTPayload } from './types';
+
 
 // Extend Express Request type to include userId
 declare global {
