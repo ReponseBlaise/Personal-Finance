@@ -1,4 +1,4 @@
-import { AppState, AuthResponse, Transaction, FinancialSummary, User, Pot, Budget } from './types';
+import { AppState, AuthResponse, Transaction, FinancialSummary, Pot, Budget } from './types';
 
 export class Store {
   private state: AppState = {
