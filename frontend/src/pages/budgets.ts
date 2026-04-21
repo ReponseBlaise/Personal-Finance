@@ -44,10 +44,10 @@ function renderBudgets(budgets: Budget[]): void {
           <h4>${budget.category}</h4>
           <div class="budget-status">
             ${formatCurrency(budget.spent)} of ${formatCurrency(budget.limit)}
-            ${isOverBudget ? `<span style="color: #ef4444;"> (Over by ${formatCurrency(budget.spent - budget.limit)})</span>` : `<span style="color: #22c55e;"> (${formatCurrency(remaining)} remaining)</span>`}
+            ${isOverBudget ? `<span style="color:#000;font-weight:600;"> (Over by ${formatCurrency(budget.spent - budget.limit)})</span>` : `<span style="color:#555;"> (${formatCurrency(remaining)} remaining)</span>`}
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" style="width: ${Math.min(percentage, 100)}%; background: ${percentage > 100 ? '#ef4444' : 'var(--accent-color)'};"></div>
+            <div class="progress-fill" style="width: ${Math.min(percentage, 100)}%;"></div>
           </div>
         </div>
         <button class="delete-btn" data-id="${budget.id}">Delete</button>

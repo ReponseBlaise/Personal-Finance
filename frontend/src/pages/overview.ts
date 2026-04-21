@@ -159,7 +159,7 @@ function renderRecentTransactions(transactions: Transaction[]): void {
         <div class="transaction-desc">${trans.description}</div>
         <div class="transaction-meta">${formatDate(trans.date)} • ${trans.category}</div>
       </div>
-      <div class="transaction-amount" style="color: ${trans.type === 'income' ? '#22c55e' : '#ef4444'};">
+      <div class="transaction-amount" style="color: ${trans.type === 'income' ? '#000' : '#555'};">
         ${trans.type === 'income' ? '+' : '-'}${formatCurrency(trans.amount)}
       </div>
     </div>

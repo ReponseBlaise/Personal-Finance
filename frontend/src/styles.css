@@ -1,16 +1,15 @@
 /* CSS Variables - Theme */
 :root {
-  --primary-color: #1e293b;
-  --secondary-color: #334155;
-  --accent-color: #6366f1;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --border-color: #334155;
-  --card-bg: #1e293b;
-  --input-bg: #273449;
-  --error-color: #ef4444;
-  --success-color: #22c55e;
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --primary-color: #000;
+  --accent-color: #000;
+  --text-primary: #000;
+  --text-secondary: #555;
+  --border-color: #e5e5e5;
+  --card-bg: #fff;
+  --input-bg: #f5f5f5;
+  --error-color: #cc0000;
+  --success-color: #006600;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* Reset and Base Styles */
@@ -27,10 +26,9 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif;
-  background-color: #0f172a;
-  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #000;
   overflow: hidden;
 }
 
@@ -42,7 +40,7 @@ body {
 
 /* Authentication Pages */
 body {
-  background-color: #0f172a;
+  background-color: #f5f5f5;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -64,21 +62,20 @@ body {
 #registerPage {
   display: flex;
   width: 100%;
-  gap: 0;
-  background: white;
+  background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
 }
 
 .login-branding {
   flex: 1;
-  background-color: #1e293b;
+  background-color: #000;
   padding: 60px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: white;
+  color: #fff;
 }
 
 .branding-heading {
@@ -116,7 +113,7 @@ body {
 .form-container h2 {
   font-size: 32px;
   margin-bottom: 30px;
-  color: var(--primary-color);
+  color: #000;
 }
 
 .form-group {
@@ -154,8 +151,8 @@ input[type='number']:focus,
 input[type='date']:focus,
 select:focus {
   outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
 }
 
 input::placeholder {
@@ -174,8 +171,8 @@ input::placeholder {
 }
 
 .btn-primary {
-  background: #6366f1;
-  color: white;
+  background: #000;
+  color: #fff;
   width: 100%;
   margin-top: 10px;
   padding: 14px 24px;
@@ -183,19 +180,18 @@ input::placeholder {
 }
 
 .btn-primary:hover {
-  background: #4f46e5;
+  background: #333;
   transform: translateY(-2px);
 }
 
 .btn-secondary {
-  background: var(--input-bg);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
 }
 
 .btn-secondary:hover {
-  background: var(--border-color);
-  color: var(--text-primary);
+  background: #f5f5f5;
 }
 
 /* Form Links */
@@ -207,7 +203,7 @@ input::placeholder {
 }
 
 .form-link a {
-  color: var(--accent-color);
+  color: #000;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s;
@@ -215,7 +211,6 @@ input::placeholder {
 
 .form-link a:hover {
   text-decoration: underline;
-  color: #7c3aed;
 }
 
 /* Error Messages */
@@ -299,21 +294,21 @@ input::placeholder {
 /* Inline Dashboard Forms - same layout as auth pages */
 .inline-form-card {
   display: flex;
-  background: white;
+  background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
   margin-bottom: 24px;
 }
 
 .inline-form-branding {
   flex: 1;
-  background: #1e293b;
+  background: #000;
   padding: 40px 32px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: white;
+  color: #fff;
 }
 
 .inline-form-branding h3 {
@@ -357,20 +352,19 @@ input::placeholder {
 
 .inline-form-content input:focus,
 .inline-form-content select:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
 }
 
 .inline-form-content .btn-secondary {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
   margin-top: 8px;
 }
 
 .inline-form-content .btn-secondary:hover {
-  background: #e5e7eb;
-  color: #111;
+  background: #f5f5f5;
 }
 
 @media (max-width: 768px) {
@@ -391,14 +385,14 @@ input::placeholder {
   display: flex;
   height: 100%;
   width: 100%;
-  background: #0f172a;
+  background: #f5f5f5;
 }
 
 /* Sidebar */
 .sidebar {
   width: 260px;
-  background: var(--card-bg);
-  border-right: 1px solid var(--border-color);
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
   padding: 30px 20px;
   display: flex;
   flex-direction: column;
@@ -413,7 +407,7 @@ input::placeholder {
 .app-title {
   font-size: 32px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #000;
 }
 
 .nav-menu {
@@ -430,23 +424,21 @@ input::placeholder {
   align-items: center;
   padding: 12px 16px;
   border-radius: 8px;
-  color: var(--text-secondary);
+  color: #555;
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.2s;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
 .nav-link:hover {
-  background: var(--input-bg);
-  color: var(--text-primary);
-  border-color: var(--accent-color);
+  background: #f5f5f5;
+  color: #000;
 }
 
 .nav-link.active {
-  background: var(--input-bg);
-  color: var(--text-primary);
-  border-color: var(--border-color);
+  background: #000;
+  color: #fff;
   font-weight: 600;
 }
 
@@ -457,19 +449,18 @@ input::placeholder {
 
 .minimize-btn {
   margin-top: auto;
-  background: var(--input-bg);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
+  background: #fff;
+  color: #000;
+  border: 1px solid #e5e5e5;
   padding: 10px 16px;
   border-radius: 6px;
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .minimize-btn:hover {
-  background: var(--border-color);
-  color: var(--text-primary);
+  background: #f5f5f5;
 }
 
 /* Minimized Sidebar State */
@@ -530,11 +521,11 @@ input::placeholder {
 /* Dashboard Header */
 .dashboard-header {
   padding: 30px 40px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #e5e5e5;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1e293b;
+  background: #fff;
 }
 
 .dashboard-header h2 {
@@ -591,8 +582,8 @@ input::placeholder {
 }
 
 .card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background: #fff;
+  border: 1px solid #e5e5e5;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow);
@@ -600,7 +591,7 @@ input::placeholder {
 
 .card h3 {
   font-size: 14px;
-  color: var(--text-secondary);
+  color: #555;
   margin-bottom: 12px;
   font-weight: 500;
   text-transform: uppercase;
@@ -609,18 +600,19 @@ input::placeholder {
 
 .balance-card {
   grid-column: 1 / -1;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background: #000;
+  border: 1px solid #000;
+  color: #fff;
 }
 
 .balance-card h3 {
-  color: var(--text-secondary);
+  color: #aaa;
 }
 
 .balance-amount {
   font-size: 36px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #fff;
 }
 
 .amount {
@@ -630,17 +622,17 @@ input::placeholder {
 }
 
 .amount.income {
-  color: var(--success-color);
+  color: #000;
 }
 
 .amount.expense {
-  color: var(--error-color);
+  color: #000;
 }
 
 /* Sections */
 .section {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  background: #fff;
+  border: 1px solid #e5e5e5;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow);
@@ -650,6 +642,7 @@ input::placeholder {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: #000;
 }
 
 .section-header {
@@ -674,21 +667,21 @@ input::placeholder {
 .pot-item,
 .budget-item,
 .transaction-item {
-  background: var(--input-bg);
-  border: 1px solid var(--border-color);
+  background: #f5f5f5;
+  border: 1px solid #e5e5e5;
   border-radius: 8px;
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .pot-item:hover,
 .budget-item:hover,
 .transaction-item:hover {
-  border-color: var(--accent-color);
-  background: var(--card-bg);
+  border-color: #000;
+  background: #fff;
 }
 
 .pot-header {
@@ -711,13 +704,13 @@ input::placeholder {
 
 .pot-progress {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #555;
 }
 
 .progress-bar {
   width: 100%;
   height: 8px;
-  background: var(--input-bg);
+  background: #e5e5e5;
   border-radius: 4px;
   margin-top: 8px;
   overflow: hidden;
@@ -725,7 +718,7 @@ input::placeholder {
 
 .progress-fill {
   height: 100%;
-  background: var(--accent-color);
+  background: #000;
   border-radius: 4px;
   transition: width 0.3s;
 }
@@ -741,7 +734,7 @@ input::placeholder {
 
 .budget-status {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #555;
 }
 
 .transaction-details {
@@ -755,7 +748,7 @@ input::placeholder {
 
 .transaction-meta {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #555;
 }
 
 .transaction-amount {
@@ -764,24 +757,24 @@ input::placeholder {
 }
 
 .delete-btn {
-  background: var(--error-color);
-  color: white;
+  background: #000;
+  color: #fff;
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .delete-btn:hover {
-  background: #dc2626;
+  background: #333;
 }
 
 /* Empty State */
 .empty-state {
   text-align: center;
-  color: var(--text-secondary);
+  color: #555;
   padding: 40px 20px;
   font-size: 14px;
 }
@@ -920,14 +913,14 @@ input::placeholder {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--card-bg);
+  background: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: #ccc;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
+  background: #000;
 }
