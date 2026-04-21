@@ -69,21 +69,40 @@ async function deleteTransaction(id: string): Promise<void> {
   }
 }
 
+function openModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    overlay.style.display = 'flex';
+    form.style.display = 'block';
+  }
+}
+
+function closeModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    form.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+}
+
 function setupEventListeners(): void {
   const addBtn = document.getElementById('addTransactionBtn');
-  const formContainer = document.getElementById('transactionFormContainer');
-  const form = document.getElementById('transactionForm');
   const cancelBtn = document.getElementById('cancelTransBtn');
+  const form = document.getElementById('transactionForm');
 
-  addBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'block');
-  });
-
+  addBtn?.addEventListener('click', () => openModal('transactionFormContainer'));
   cancelBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'none');
+    closeModal('transactionFormContainer');
     (form as HTMLFormElement)?.reset();
   });
-
+  document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).id === 'modalOverlay') {
+      closeModal('transactionFormContainer');
+      (form as HTMLFormElement)?.reset();
+    }
+  });
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     await handleAddTransaction();
@@ -114,7 +133,7 @@ async function handleAddTransaction(): Promise<void> {
     if (response.success) {
       store.addTransaction(response.data);
       (document.getElementById('transactionForm') as HTMLFormElement)?.reset();
-      document.getElementById('transactionFormContainer')?.style.setProperty('display', 'none');
+      closeModal('transactionFormContainer');
       await loadAllTransactions();
     }
   } catch (error) {

@@ -191,41 +191,6 @@
                   <h3>All Transactions</h3>
                   <button class="btn btn-small" id="addTransactionBtn">+ Add Transaction</button>
                 </div>
-
-                <!-- Add Transaction Form -->
-                <div id="transactionFormContainer" class="inline-form-card" style="display: none;">
-                  <div class="inline-form-branding">
-                    <h3>New Transaction</h3>
-                    <p>Record your income or expenses to keep your finances up to date.</p>
-                  </div>
-                  <div class="inline-form-content">
-                    <form id="transactionForm">
-                      <div class="form-group">
-                        <input type="text" id="transDescription" placeholder="Description" required />
-                      </div>
-                      <div class="form-group">
-                        <input type="number" id="transAmount" step="0.01" placeholder="Amount (e.g. 50.00)" required />
-                      </div>
-                      <div class="form-group">
-                        <select id="transType" required>
-                          <option value="">Select type</option>
-                          <option value="income">Income</option>
-                          <option value="expense">Expense</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <input type="text" id="transCategory" placeholder="Category (e.g. Food, Rent)" required />
-                      </div>
-                      <div class="form-group">
-                        <input type="date" id="transDate" required />
-                      </div>
-                      <button type="submit" class="btn btn-primary">Add Transaction</button>
-                      <button type="button" class="btn btn-secondary" id="cancelTransBtn">Cancel</button>
-                    </form>
-                  </div>
-                </div>
-
-                <!-- Transactions List -->
                 <div id="transactionsListContainer" class="transactions-list"></div>
               </div>
             </div>
@@ -237,28 +202,6 @@
                   <h3>Budgets</h3>
                   <button class="btn btn-small" id="addBudgetPageBtn">+ Add Budget</button>
                 </div>
-
-                <!-- Add Budget Form -->
-                <div id="budgetFormContainer" class="inline-form-card" style="display: none;">
-                  <div class="inline-form-branding">
-                    <h3>New Budget</h3>
-                    <p>Set a spending limit for a category to stay on track each month.</p>
-                  </div>
-                  <div class="inline-form-content">
-                    <form id="budgetForm">
-                      <div class="form-group">
-                        <input type="text" id="budgetCategory" placeholder="Category (e.g. Groceries)" required />
-                      </div>
-                      <div class="form-group">
-                        <input type="number" id="budgetLimit" step="0.01" placeholder="Monthly limit (e.g. 300.00)" required />
-                      </div>
-                      <button type="submit" class="btn btn-primary">Add Budget</button>
-                      <button type="button" class="btn btn-secondary" id="cancelBudgetBtn">Cancel</button>
-                    </form>
-                  </div>
-                </div>
-
-                <!-- Budgets List -->
                 <div id="budgetsPageContainer" class="budgets-list"></div>
               </div>
             </div>
@@ -270,38 +213,6 @@
                   <h3>Pots</h3>
                   <button class="btn btn-small" id="addPotPageBtn">+ Add Pot</button>
                 </div>
-
-                <!-- Add Pot Form -->
-                <div id="potFormContainer" class="inline-form-card" style="display: none;">
-                  <div class="inline-form-branding">
-                    <h3>New Pot</h3>
-                    <p>Create a savings pot and work towards your financial goals.</p>
-                  </div>
-                  <div class="inline-form-content">
-                    <form id="potForm">
-                      <div class="form-group">
-                        <input type="text" id="potName" placeholder="Pot name (e.g. Holiday)" required />
-                      </div>
-                      <div class="form-group">
-                        <input type="number" id="potTarget" step="0.01" placeholder="Savings target (e.g. 1000.00)" required />
-                      </div>
-                      <div class="form-group">
-                        <select id="potColor" required>
-                          <option value="">Select color</option>
-                          <option value="#FF6B6B">Red</option>
-                          <option value="#4ECDC4">Teal</option>
-                          <option value="#45B7D1">Blue</option>
-                          <option value="#FFA07A">Light Salmon</option>
-                          <option value="#98D8C8">Mint</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Add Pot</button>
-                      <button type="button" class="btn btn-secondary" id="cancelPotBtn">Cancel</button>
-                    </form>
-                  </div>
-                </div>
-
-                <!-- Pots List -->
                 <div id="potsPageContainer" class="pots-list"></div>
               </div>
             </div>
@@ -317,5 +228,87 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Overlay -->
+    <div id="modalOverlay" class="modal-overlay" style="display:none;">
+      <div class="modal">
+
+        <!-- Transaction Modal -->
+        <div id="transactionFormContainer" class="modal-form" style="display:none;">
+          <div class="modal-header">
+            <h3>New Transaction</h3>
+            <button class="modal-close" id="cancelTransBtn">✕</button>
+          </div>
+          <form id="transactionForm">
+            <div class="form-group">
+              <input type="text" id="transDescription" placeholder="Description" required />
+            </div>
+            <div class="form-group">
+              <input type="number" id="transAmount" step="0.01" placeholder="Amount (e.g. 50.00)" required />
+            </div>
+            <div class="form-group">
+              <select id="transType" required>
+                <option value="">Select type</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" id="transCategory" placeholder="Category (e.g. Food, Rent)" required />
+            </div>
+            <div class="form-group">
+              <input type="date" id="transDate" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Transaction</button>
+          </form>
+        </div>
+
+        <!-- Budget Modal -->
+        <div id="budgetFormContainer" class="modal-form" style="display:none;">
+          <div class="modal-header">
+            <h3>New Budget</h3>
+            <button class="modal-close" id="cancelBudgetBtn">✕</button>
+          </div>
+          <form id="budgetForm">
+            <div class="form-group">
+              <input type="text" id="budgetCategory" placeholder="Category (e.g. Groceries)" required />
+            </div>
+            <div class="form-group">
+              <input type="number" id="budgetLimit" step="0.01" placeholder="Monthly limit (e.g. 300.00)" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Budget</button>
+          </form>
+        </div>
+
+        <!-- Pot Modal -->
+        <div id="potFormContainer" class="modal-form" style="display:none;">
+          <div class="modal-header">
+            <h3>New Pot</h3>
+            <button class="modal-close" id="cancelPotBtn">✕</button>
+          </div>
+          <form id="potForm">
+            <div class="form-group">
+              <input type="text" id="potName" placeholder="Pot name (e.g. Holiday)" required />
+            </div>
+            <div class="form-group">
+              <input type="number" id="potTarget" step="0.01" placeholder="Savings target (e.g. 1000.00)" required />
+            </div>
+            <div class="form-group">
+              <select id="potColor" required>
+                <option value="">Select color</option>
+                <option value="#FF6B6B">Red</option>
+                <option value="#4ECDC4">Teal</option>
+                <option value="#45B7D1">Blue</option>
+                <option value="#FFA07A">Light Salmon</option>
+                <option value="#98D8C8">Mint</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Pot</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
   </body>
 </html>
