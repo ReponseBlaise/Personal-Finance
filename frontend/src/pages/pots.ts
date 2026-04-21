@@ -76,21 +76,40 @@ async function deletePot(id: string): Promise<void> {
   }
 }
 
+function openModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    overlay.style.display = 'flex';
+    form.style.display = 'block';
+  }
+}
+
+function closeModal(formId: string): void {
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById(formId);
+  if (overlay && form) {
+    form.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+}
+
 function setupEventListeners(): void {
   const addBtn = document.getElementById('addPotPageBtn');
-  const formContainer = document.getElementById('potFormContainer');
-  const form = document.getElementById('potForm');
   const cancelBtn = document.getElementById('cancelPotBtn');
+  const form = document.getElementById('potForm');
 
-  addBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'block');
-  });
-
+  addBtn?.addEventListener('click', () => openModal('potFormContainer'));
   cancelBtn?.addEventListener('click', () => {
-    formContainer?.style.setProperty('display', 'none');
+    closeModal('potFormContainer');
     (form as HTMLFormElement)?.reset();
   });
-
+  document.getElementById('modalOverlay')?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).id === 'modalOverlay') {
+      closeModal('potFormContainer');
+      (form as HTMLFormElement)?.reset();
+    }
+  });
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     await handleAddPot();
@@ -117,7 +136,7 @@ async function handleAddPot(): Promise<void> {
     if (response.success) {
       store.addPot(response.data);
       (document.getElementById('potForm') as HTMLFormElement)?.reset();
-      document.getElementById('potFormContainer')?.style.setProperty('display', 'none');
+      closeModal('potFormContainer');
       await loadPots();
     }
   } catch (error) {
