@@ -15,7 +15,7 @@ app.use(
     origin: [
       'http://localhost:3000',
       'http://localhost:5173',
-      'https://personal-finance-nu-gold.vercel.app',
+      'https://personal-finance-au3q1ee7s-mushimiyumukiza-blaises-projects.vercel.app/',
     ],
     credentials: true,
   })
