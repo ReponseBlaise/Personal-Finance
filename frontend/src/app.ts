@@ -56,7 +56,15 @@ async function showDashboard(): Promise<void> {
 
   if (loginPage) setDisplay(loginPage, 'none');
   if (registerPage) setDisplay(registerPage, 'none');
-  if (dashboardContainer) setDisplay(dashboardContainer, 'flex');
+  if (dashboardContainer) {
+    setDisplay(dashboardContainer, 'flex');
+    const app = document.getElementById('app');
+    if (app) {
+      app.style.alignItems = 'stretch';
+      app.style.justifyContent = 'stretch';
+      app.style.padding = '0';
+    }
+  }
 
   const state = store.getState();
   if (userEmail && state.auth.user) {
