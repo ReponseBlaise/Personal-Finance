@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Finance App - Manage Your Money</title>
-   <link rel="stylesheet" href="/src/styles.css" />
+    <title>Personal Finance Dashboard</title>
+    <script type="module" src="/src/app.ts"></script>
   </head>
   <body>
     <div id="app">
@@ -75,6 +75,17 @@
 
             <form id="registerForm">
               <div class="form-group">
+                <label for="registerName">Name</label>
+                <input
+                  type="text"
+                  id="registerName"
+                  name="name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
                 <label for="registerEmail">Email</label>
                 <input
                   type="email"
@@ -117,113 +128,235 @@
         </div>
       </div>
 
-      <!-- Dashboard -->
-      <div id="dashboard" style="display: none">
-        <header class="dashboard-header">
-          <h1>💰 Finance Dashboard</h1>
-          <div class="user-info">
-            <div>
-              <p class="user-email">
-                Logged in as: <span id="userEmail"></span>
-              </p>
-            </div>
-            <button id="logoutBtn" class="btn-logout">Logout</button>
+      <!-- Dashboard (Hidden when not authenticated) -->
+      <div id="dashboardContainer" style="display: none;" class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+          <div class="sidebar-header">
+            <h1 class="app-title">finance</h1>
           </div>
-        </header>
 
-        <div class="dashboard-content">
-          <!-- Balance section -->
-          <div class="balance-section">
-            <div>
-              <h2 class="section-title">Summary</h2>
-              <div class="balance-cards">
-                <div class="balance-card">
-                  <div class="balance-label">Total Income</div>
-                  <div id="totalIncome" class="balance-amount">$0.00</div>
+          <ul class="nav-menu">
+            <li>
+              <a href="#" class="nav-link active" data-page="overview">
+                <span class="nav-icon">📊</span>
+                <span>Overview</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-page="transactions">
+                <span class="nav-icon">💳</span>
+                <span>Transactions</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-page="budgets">
+                <span class="nav-icon">📈</span>
+                <span>Budgets</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-page="pots">
+                <span class="nav-icon">🏺</span>
+                <span>Pots</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-page="recurring-bills">
+                <span class="nav-icon">📅</span>
+                <span>Recurring bills</span>
+              </a>
+            </li>
+          </ul>
+
+          <button id="minimizeBtn" class="minimize-btn">Minimize Menu</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+          <!-- Header -->
+          <header class="dashboard-header">
+            <h2 id="pageTitle">Overview</h2>
+            <div class="header-actions">
+              <span id="userEmail" class="user-email"></span>
+              <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+          </header>
+
+          <!-- Pages Container -->
+          <div class="pages-container">
+            <!-- Overview Page -->
+            <div id="overviewPage" class="page active">
+              <div class="overview-grid">
+                <!-- Summary Cards -->
+                <div class="summary-section">
+                  <div class="card balance-card">
+                    <h3>Current Balance</h3>
+                    <p class="balance-amount" id="currentBalance">$0.00</p>
+                  </div>
+                  <div class="card">
+                    <h3>Income</h3>
+                    <p class="amount income" id="totalIncome">$0.00</p>
+                  </div>
+                  <div class="card">
+                    <h3>Expenses</h3>
+                    <p class="amount expense" id="totalExpenses">$0.00</p>
+                  </div>
                 </div>
-                <div class="balance-card">
-                  <div class="balance-label">Total Expenses</div>
-                  <div id="totalExpenses" class="balance-amount">$0.00</div>
+
+                <!-- Pots Section -->
+                <div class="section">
+                  <div class="section-header">
+                    <h3>Pots</h3>
+                    <button class="btn btn-small" id="addPotBtn">+ Add Pot</button>
+                  </div>
+                  <div id="potsContainer" class="pots-list"></div>
                 </div>
-                <div class="balance-card positive">
-                  <div class="balance-label">Net Balance</div>
-                  <div id="netBalance" class="balance-amount">$0.00</div>
+
+                <!-- Budgets Section -->
+                <div class="section">
+                  <div class="section-header">
+                    <h3>Budgets</h3>
+                    <button class="btn btn-small" id="addBudgetBtn">+ Add Budget</button>
+                  </div>
+                  <div id="budgetsContainer" class="budgets-list"></div>
+                </div>
+
+                <!-- Transactions Section -->
+                <div class="section">
+                  <h3>Recent Transactions</h3>
+                  <div id="recentTransactionsContainer" class="transactions-list"></div>
                 </div>
               </div>
             </div>
 
-            <!-- Add transaction form -->
-            <div>
-              <h2 class="section-title">Add Transaction</h2>
-              <form id="transactionForm" class="transaction-form">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="description">Description</label>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      placeholder="e.g., Salary, Groceries"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <input
-                      type="number"
-                      id="amount"
-                      name="amount"
-                      placeholder="0.00"
-                      step="0.01"
-                      min="0"
-                      required
-                    />
-                  </div>
+            <!-- Transactions Page -->
+            <div id="transactionsPage" class="page">
+              <div class="transactions-container">
+                <div class="section-header">
+                  <h3>All Transactions</h3>
+                  <button class="btn btn-small" id="addTransactionBtn">+ Add Transaction</button>
                 </div>
 
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="type">Type</label>
-                    <select id="type" name="type" required>
-                      <option value="expense">Expense</option>
-                      <option value="income">Income</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="category">Category</label>
-                    <input
-                      type="text"
-                      id="category"
-                      name="category"
-                      placeholder="e.g., Food, Utilities"
-                      required
-                    />
-                  </div>
+                <!-- Add Transaction Form -->
+                <div id="transactionFormContainer" class="card" style="display: none;">
+                  <h4>Add Transaction</h4>
+                  <form id="transactionForm">
+                    <div class="form-group">
+                      <label for="transDescription">Description</label>
+                      <input type="text" id="transDescription" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="transAmount">Amount</label>
+                      <input type="number" id="transAmount" step="0.01" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="transType">Type</label>
+                      <select id="transType" required>
+                        <option value="">Select type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="transCategory">Category</label>
+                      <input type="text" id="transCategory" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="transDate">Date</label>
+                      <input type="date" id="transDate" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" id="cancelTransBtn">Cancel</button>
+                  </form>
                 </div>
 
-                <div class="form-row full">
-                  <div class="form-group">
-                    <label for="date">Date</label>
-                    <input type="date" id="date" name="date" required />
-                  </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Add Transaction</button>
-              </form>
+                <!-- Transactions List -->
+                <div id="transactionsListContainer" class="transactions-list"></div>
+              </div>
             </div>
-          </div>
 
-          <!-- Transactions list -->
-          <div class="transaction-section">
-            <h2 class="section-title">Recent Transactions</h2>
-            <div id="transactionList" class="transaction-list">
-              <p class="empty-message">Loading transactions...</p>
+            <!-- Budgets Page -->
+            <div id="budgetsPage" class="page">
+              <div class="budgets-container">
+                <div class="section-header">
+                  <h3>Budgets</h3>
+                  <button class="btn btn-small" id="addBudgetPageBtn">+ Add Budget</button>
+                </div>
+
+                <!-- Add Budget Form -->
+                <div id="budgetFormContainer" class="card" style="display: none;">
+                  <h4>Add Budget</h4>
+                  <form id="budgetForm">
+                    <div class="form-group">
+                      <label for="budgetCategory">Category</label>
+                      <input type="text" id="budgetCategory" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="budgetLimit">Limit</label>
+                      <input type="number" id="budgetLimit" step="0.01" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBudgetBtn">Cancel</button>
+                  </form>
+                </div>
+
+                <!-- Budgets List -->
+                <div id="budgetsPageContainer" class="budgets-list"></div>
+              </div>
+            </div>
+
+            <!-- Pots Page -->
+            <div id="potsPage" class="page">
+              <div class="pots-container">
+                <div class="section-header">
+                  <h3>Pots</h3>
+                  <button class="btn btn-small" id="addPotPageBtn">+ Add Pot</button>
+                </div>
+
+                <!-- Add Pot Form -->
+                <div id="potFormContainer" class="card" style="display: none;">
+                  <h4>Add Pot</h4>
+                  <form id="potForm">
+                    <div class="form-group">
+                      <label for="potName">Name</label>
+                      <input type="text" id="potName" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="potTarget">Target</label>
+                      <input type="number" id="potTarget" step="0.01" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="potColor">Color</label>
+                      <select id="potColor" required>
+                        <option value="">Select color</option>
+                        <option value="#FF6B6B">Red</option>
+                        <option value="#4ECDC4">Teal</option>
+                        <option value="#45B7D1">Blue</option>
+                        <option value="#FFA07A">Light Salmon</option>
+                        <option value="#98D8C8">Mint</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" id="cancelPotBtn">Cancel</button>
+                  </form>
+                </div>
+
+                <!-- Pots List -->
+                <div id="potsPageContainer" class="pots-list"></div>
+              </div>
+            </div>
+
+            <!-- Recurring Bills Page -->
+            <div id="recurringPage" class="page">
+              <div class="recurring-container">
+                <h3>Recurring Bills</h3>
+                <p class="empty-state">No recurring bills yet</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script type="module" src="/src/app.ts"></script>
   </body>
 </html>

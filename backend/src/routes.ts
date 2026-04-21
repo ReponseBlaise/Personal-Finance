@@ -1,8 +1,10 @@
 import { Router, Request, Response } from 'express';
 import { AuthService } from './authService';
 import { TransactionService } from './transactionService';
+import { PotService } from './potService';
+import { BudgetService } from './budgetService';
 import { authMiddleware } from './middleware';
-import { RegisterRequest, LoginRequest, TransactionRequest, ApiResponse } from './types';
+import { RegisterRequest, LoginRequest, TransactionRequest, PotRequest, BudgetRequest, ApiResponse } from './types';
 
 const router = Router();
 
@@ -46,6 +48,32 @@ function isValidTransactionRequest(data: unknown): data is TransactionRequest {
       (data as Record<string, unknown>).type === 'expense') &&
     typeof (data as Record<string, unknown>).category === 'string' &&
     typeof (data as Record<string, unknown>).date === 'string'
+  );
+}
+
+// Type guard for PotRequest
+function isValidPotRequest(data: unknown): data is PotRequest {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'name' in data &&
+    'target' in data &&
+    'color' in data &&
+    typeof (data as Record<string, unknown>).name === 'string' &&
+    typeof (data as Record<string, unknown>).target === 'number' &&
+    typeof (data as Record<string, unknown>).color === 'string'
+  );
+}
+
+// Type guard for BudgetRequest
+function isValidBudgetRequest(data: unknown): data is BudgetRequest {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'category' in data &&
+    'limit' in data &&
+    typeof (data as Record<string, unknown>).category === 'string' &&
+    typeof (data as Record<string, unknown>).limit === 'number'
   );
 }
 
@@ -192,6 +220,172 @@ router.delete('/transactions/:id', authMiddleware, (req: Request, res: Response)
     res.status(200).json({ success: true, data: { message: 'Transaction deleted successfully' } } as ApiResponse<{ message: string }>);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to delete transaction';
+    res.status(404).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+// Pot Routes (Protected)
+router.post('/pots', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    if (!isValidPotRequest(req.body)) {
+      res.status(400).json({
+        success: false,
+        error: 'Invalid request body. Name, target, and color are required.',
+      } as ApiResponse<never>);
+      return;
+    }
+
+    const { name, target, color } = req.body;
+    const pot = PotService.createPot(userId, name, target, color);
+    res.status(201).json({ success: true, data: pot } as ApiResponse<typeof pot>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to create pot';
+    res.status(400).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+router.get('/pots', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    const pots = PotService.getPots(userId);
+    res.status(200).json({ success: true, data: pots } as ApiResponse<typeof pots>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch pots';
+    res.status(500).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+router.post('/pots/:id/add', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    const { id } = req.params;
+    const { amount } = req.body as { amount: number };
+
+    if (typeof amount !== 'number' || amount <= 0) {
+      res.status(400).json({
+        success: false,
+        error: 'Invalid amount',
+      } as ApiResponse<never>);
+      return;
+    }
+
+    const pot = PotService.addToPot(id, userId, amount);
+    res.status(200).json({ success: true, data: pot } as ApiResponse<typeof pot>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to add to pot';
+    res.status(400).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+router.delete('/pots/:id', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    const { id } = req.params;
+    PotService.deletePot(id, userId);
+    res.status(200).json({ success: true, data: { message: 'Pot deleted successfully' } } as ApiResponse<{ message: string }>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to delete pot';
+    res.status(404).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+// Budget Routes (Protected)
+router.post('/budgets', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    if (!isValidBudgetRequest(req.body)) {
+      res.status(400).json({
+        success: false,
+        error: 'Invalid request body. Category and limit are required.',
+      } as ApiResponse<never>);
+      return;
+    }
+
+    const { category, limit } = req.body;
+    const budget = BudgetService.createBudget(userId, category, limit);
+    res.status(201).json({ success: true, data: budget } as ApiResponse<typeof budget>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to create budget';
+    res.status(400).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+router.get('/budgets', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    const budgets = BudgetService.getBudgets(userId);
+    res.status(200).json({ success: true, data: budgets } as ApiResponse<typeof budgets>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch budgets';
+    res.status(500).json({
+      success: false,
+      error: message,
+    } as ApiResponse<never>);
+  }
+});
+
+router.delete('/budgets/:id', authMiddleware, (req: Request, res: Response): void => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      res.status(401).json({ success: false, error: 'User ID not found in token' } as ApiResponse<never>);
+      return;
+    }
+
+    const { id } = req.params;
+    BudgetService.deleteBudget(id, userId);
+    res.status(200).json({ success: true, data: { message: 'Budget deleted successfully' } } as ApiResponse<{ message: string }>);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to delete budget';
     res.status(404).json({
       success: false,
       error: message,

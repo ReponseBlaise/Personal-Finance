@@ -17,6 +17,27 @@ export interface Transaction {
   createdAt: string;
 }
 
+// Pot types
+export interface Pot {
+  id: string;
+  userId: string;
+  name: string;
+  target: number;
+  current: number;
+  color: string;
+  createdAt: string;
+}
+
+// Budget types
+export interface Budget {
+  id: string;
+  userId: string;
+  category: string;
+  limit: number;
+  spent: number;
+  createdAt: string;
+}
+
 // Request types
 export interface RegisterRequest {
   email: string;
@@ -34,6 +55,17 @@ export interface TransactionRequest {
   type: 'income' | 'expense';
   category: string;
   date: string;
+}
+
+export interface PotRequest {
+  name: string;
+  target: number;
+  color: string;
+}
+
+export interface BudgetRequest {
+  category: string;
+  limit: number;
 }
 
 // Response types
@@ -64,7 +96,10 @@ export interface AuthState {
 export interface AppState {
   auth: AuthState;
   transactions: Transaction[];
+  pots: Pot[];
+  budgets: Budget[];
   summary: FinancialSummary | null;
   isLoading: boolean;
   error: string | null;
+  currentPage: 'overview' | 'transactions' | 'budgets' | 'pots' | 'recurring-bills';
 }

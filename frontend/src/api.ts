@@ -6,9 +6,13 @@ import {
   Transaction,
   TransactionRequest,
   FinancialSummary,
+  Pot,
+  PotRequest,
+  Budget,
+  BudgetRequest,
 } from './types';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = (import.meta.env as { VITE_API_URL?: string }).VITE_API_URL || 'http://localhost:5000/api';
 
 // Type guard for ApiResponse
 function isApiResponse<T>(response: unknown): response is ApiResponse<T> {
@@ -111,5 +115,35 @@ export class ApiClient {
   // Summary endpoint
   static async getFinancialSummary(): Promise<ApiResponse<FinancialSummary>> {
     return this.request<FinancialSummary>('GET', '/summary');
+  }
+
+  // Pot endpoints
+  static async createPot(request: PotRequest): Promise<ApiResponse<Pot>> {
+    return this.request<Pot>('POST', '/pots', request);
+  }
+
+  static async getPots(): Promise<ApiResponse<Pot[]>> {
+    return this.request<Pot[]>('GET', '/pots');
+  }
+
+  static async addToPot(potId: string, amount: number): Promise<ApiResponse<Pot>> {
+    return this.request<Pot>('POST', `/pots/${potId}/add`, { amount });
+  }
+
+  static async deletePot(id: string): Promise<ApiResponse<{ message: string }>> {
+    return this.request<{ message: string }>('DELETE', `/pots/${id}`);
+  }
+
+  // Budget endpoints
+  static async createBudget(request: BudgetRequest): Promise<ApiResponse<Budget>> {
+    return this.request<Budget>('POST', '/budgets', request);
+  }
+
+  static async getBudgets(): Promise<ApiResponse<Budget[]>> {
+    return this.request<Budget[]>('GET', '/budgets');
+  }
+
+  static async deleteBudget(id: string): Promise<ApiResponse<{ message: string }>> {
+    return this.request<{ message: string }>('DELETE', `/budgets/${id}`);
   }
 }

@@ -1,17 +1,20 @@
-import { AppState, AuthState, AuthResponse, Transaction, FinancialSummary, User } from './types';
+import { AppState, AuthState, AuthResponse, Transaction, FinancialSummary, User, Pot, Budget } from './types';
 
 export class Store {
   private state: AppState = {
     auth: {
-      token: localStorage.getItem('token'),
-      user: this.loadUser(),
+      token: null, // Always start fresh (development)
+      user: null,  // Always start fresh (development)
       isLoading: false,
       error: null,
     },
     transactions: [],
+    pots: [],
+    budgets: [],
     summary: null,
     isLoading: false,
     error: null,
+    currentPage: 'overview',
   };
 
   private listeners: Set<() => void> = new Set();
@@ -96,6 +99,41 @@ export class Store {
 
   setError(error: string | null): void {
     this.state.error = error;
+    this.notify();
+  }
+
+  setPots(pots: Pot[]): void {
+    this.state.pots = pots;
+    this.notify();
+  }
+
+  addPot(pot: Pot): void {
+    this.state.pots.push(pot);
+    this.notify();
+  }
+
+  removePot(potId: string): void {
+    this.state.pots = this.state.pots.filter(p => p.id !== potId);
+    this.notify();
+  }
+
+  setBudgets(budgets: Budget[]): void {
+    this.state.budgets = budgets;
+    this.notify();
+  }
+
+  addBudget(budget: Budget): void {
+    this.state.budgets.push(budget);
+    this.notify();
+  }
+
+  removeBudget(budgetId: string): void {
+    this.state.budgets = this.state.budgets.filter(b => b.id !== budgetId);
+    this.notify();
+  }
+
+  setCurrentPage(page: 'overview' | 'transactions' | 'budgets' | 'pots' | 'recurring-bills'): void {
+    this.state.currentPage = page;
     this.notify();
   }
 

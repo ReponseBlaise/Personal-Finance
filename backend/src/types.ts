@@ -24,6 +24,27 @@ export interface Transaction {
   createdAt: Date;
 }
 
+// Pot types (savings pots)
+export interface Pot {
+  id: string;
+  userId: string;
+  name: string;
+  target: number;
+  current: number;
+  color: string;
+  createdAt: Date;
+}
+
+// Budget types
+export interface Budget {
+  id: string;
+  userId: string;
+  category: string;
+  limit: number;
+  spent: number;
+  createdAt: Date;
+}
+
 // Request/Response types
 export interface RegisterRequest {
   email: string;
@@ -46,6 +67,17 @@ export interface TransactionRequest {
   type: 'income' | 'expense';
   category: string;
   date: string;
+}
+
+export interface PotRequest {
+  name: string;
+  target: number;
+  color: string;
+}
+
+export interface BudgetRequest {
+  category: string;
+  limit: number;
 }
 
 // API Response types using discriminated union
