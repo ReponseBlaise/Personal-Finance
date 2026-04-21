@@ -44,7 +44,7 @@ body {
 
 /* Authentication Pages */
 body {
-  background-color: var(--primary-color);
+  background-color: var(--text-primary);
   min-height: 100vh;
   display: flex;
   align-items: center;
