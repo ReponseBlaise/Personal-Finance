@@ -44,7 +44,7 @@ body {
 
 /* Authentication Pages */
 body {
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  background-color: var(--primary-color);
   min-height: 100vh;
   display: flex;
   align-items: center;
