@@ -12,7 +12,11 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://personal-finance-nu-gold.vercel.app',
+    ],
     credentials: true,
   })
 );
@@ -30,7 +34,11 @@ app.use((_req, res) => {
   res.status(404).json({ success: false, error: 'Route not found' });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start server (local dev only)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
