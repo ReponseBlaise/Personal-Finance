@@ -1,6 +1,6 @@
 import { ApiClient } from '../api';
 import { store } from '../store';
-import { validateEmail, validatePassword, getInputValue, clearInput, setDisplay } from '../dom';
+import { validateEmail, validatePassword, getInputValue, clearInput } from '../dom';
 import { RegisterRequest } from '../types';
 
 export function setupRegisterPage(): void {

@@ -1,4 +1,4 @@
-import { AppState, AuthState, AuthResponse, Transaction, FinancialSummary, User, Pot, Budget } from './types';
+import { AppState, AuthResponse, Transaction, FinancialSummary, User, Pot, Budget } from './types';
 
 export class Store {
   private state: AppState = {
@@ -18,16 +18,6 @@ export class Store {
   };
 
   private listeners: Set<() => void> = new Set();
-
-  private loadUser(): User | null {
-    const userJson = localStorage.getItem('user');
-    if (!userJson) return null;
-    try {
-      return JSON.parse(userJson) as User;
-    } catch {
-      return null;
-    }
-  }
 
   getState(): Readonly<AppState> {
     return Object.freeze({ ...this.state });
