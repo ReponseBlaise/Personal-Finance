@@ -322,7 +322,110 @@ input::placeholder {
   }
 }
 
-/* Dashboard Layout */
+/* Inline Dashboard Forms - same layout as auth pages */
+.inline-form-card {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  margin-bottom: 24px;
+}
+
+.inline-form-branding {
+  flex: 1;
+  background: linear-gradient(135deg, #0b1957 0%, #2d1b69 50%, #1a0033 100%);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.inline-form-branding::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  top: -80px;
+  right: -80px;
+}
+
+.inline-form-branding h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.inline-form-branding p {
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.inline-form-content {
+  flex: 1;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+}
+
+.inline-form-content input,
+.inline-form-content select {
+  background: white;
+  color: #111;
+  border: 1px solid #ddd;
+}
+
+.inline-form-content input::placeholder {
+  color: #999;
+}
+
+.inline-form-content input:focus,
+.inline-form-content select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.inline-form-content .btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  margin-top: 8px;
+}
+
+.inline-form-content .btn-secondary:hover {
+  background: #e5e7eb;
+  color: #111;
+}
+
+@media (max-width: 768px) {
+  .inline-form-card {
+    flex-direction: column;
+  }
+
+  .inline-form-branding {
+    padding: 24px 20px;
+  }
+
+  .inline-form-content {
+    padding: 24px 20px;
+  }
+}
+
 #dashboardContainer {
   display: flex;
   height: 100%;
